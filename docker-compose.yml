@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  # ..... other configs ......
+  database:
+    image: 'mongo'
+    container_name: 'mongo-container-1'
+    environment: 
+      - MONGO_INITDB_DATABASE=mongodb
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    volumes:
+      #- ./intit-mongo.js:/docker-entrypoint-intitdb.d/intit-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      #- '27017-27019:27017-27019'
+      - '27017:27017'
+    restart: unless-stopped
