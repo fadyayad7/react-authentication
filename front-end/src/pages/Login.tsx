@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useToken } from "../auth/AuthHooks";
+import { Api } from "../util/Api";
 
 const Login = () => {
+  const [token, setToken] = useToken();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -9,7 +12,12 @@ const Login = () => {
   const history = useHistory();
 
   const onLoginClicked = () => {
-      alert('not implemented yet')
+      Api.login({email, password})
+        .then(response => {
+            (setToken as (token: string) => void)(response.data.token);
+            history.push('/');
+        })
+        .catch(console.error);
   }
 
   return (

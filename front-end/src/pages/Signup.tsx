@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useToken } from "../auth/AuthHooks";
+import { Api } from "../util/Api";
 
 
 const Signup = () => {
+    const [token, setToken] = useToken();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirmed, setPasswordConfirmed] = useState<string>("");
@@ -10,8 +14,13 @@ const Signup = () => {
   
   const history = useHistory();
 
-  const onSignupClicked = () => {
-    alert('not implemented yet')
+  const onSignupClicked = async () => {
+    Api.signup({email, password})
+        .then(response => {
+            (setToken as (token: string) => void)(response.data.token);
+            history.push('/');
+        })
+        .catch(console.error);
   }
 
   return (
