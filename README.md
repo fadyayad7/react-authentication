@@ -1,2 +1,2 @@
 # react-authentication
-react/nodejs app about auth/jwt/oath
+a full-stack app react/nodejs/mongo with auth/jwt/oath
