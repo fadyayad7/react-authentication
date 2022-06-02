@@ -3,6 +3,7 @@ import { UserInfoPage } from './pages/UserInfoPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PrivateRoute from './auth/PrivateRoute';
+import {PleaseVerifyEmail, EmailVerification} from './pages/VerifyEmail';
 
 export const Routes = () => {
     return (
@@ -16,6 +17,12 @@ export const Routes = () => {
                 </Route>
                 <Route path="/signup">
                     <Signup />
+                </Route>
+                <Route path="/please-verify-email">
+                    <PleaseVerifyEmail />
+                </Route>
+                <Route path="/verify-email/:verificationString">
+                    <EmailVerification />
                 </Route>
             </Switch>
         </Router>

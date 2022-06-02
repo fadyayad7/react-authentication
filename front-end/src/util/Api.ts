@@ -16,4 +16,10 @@ export class Api {
     public static updateUserInfo = async (userId: string, params: {}) => {
         return axios.put(`/api/users/${userId}`, {...params}, {headers: { Authorization: `Bearer ${this.getToken()}` }})
     }
+
+    public static verifyEmail = async (params: {verificationString: string}) => {
+        console.log(params);
+        
+        return axios.put(`/api/users/verify-email`, {...params});
+    }
 }

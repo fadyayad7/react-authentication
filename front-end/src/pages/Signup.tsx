@@ -18,7 +18,7 @@ const Signup = () => {
     Api.signup({email, password})
         .then(response => {
             (setToken as (token: string) => void)(response.data.token);
-            history.push('/');
+            history.push('/please-verify-email');
         })
         .catch(console.error);
   }
