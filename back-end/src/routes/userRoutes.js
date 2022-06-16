@@ -138,8 +138,7 @@ export const verifyEmailRoute = {
         const result = await db.collection('users').findOne({
             verificationString
         });
-        console.log(result);
-
+        
         if (!result) return res.status(401).json({ message: 'The email verification string is incorrect' });
 
         const {_id: id, email, info} = result;
