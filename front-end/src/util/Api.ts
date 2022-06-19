@@ -22,4 +22,12 @@ export class Api {
     public static verifyEmail = async (params: {verificationString: string}) => {
         return axios.put(`/api/users/verify-email`, {...params});
     }
+
+    public static forgotPassword = async (email: string) => {
+        return axios.put(`/api/forgot-password/${email}`);
+    }
+    
+    public static resetPassword = async (passwordResetCode: string, params: {}) => {
+        return axios.put(`/api/users/${passwordResetCode}/reset-password`, {...params});
+    }
 }
