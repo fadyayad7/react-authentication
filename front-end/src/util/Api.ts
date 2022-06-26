@@ -30,4 +30,8 @@ export class Api {
     public static resetPassword = async (passwordResetCode: string, params: {}) => {
         return axios.put(`/api/users/${passwordResetCode}/reset-password`, {...params});
     }
+
+    public static getGoogleOauthUrl = async () => {
+        return axios.get('/auth/google/url');
+    }
 }

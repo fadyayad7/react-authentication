@@ -1,5 +1,5 @@
 import { testRoute } from './testRoute';
-import { resetPassword, forgotPasswordRoute, loginRoute, signupRoute, updateUserInfoRoute, verifyEmailRoute } from './userRoutes';
+import { resetPassword, forgotPasswordRoute, loginRoute, signupRoute, updateUserInfoRoute, verifyEmailRoute, oauthRoute, googleOauthCallbackRoute } from './userRoutes';
 
 export const routes = [
     signupRoute,
@@ -8,5 +8,7 @@ export const routes = [
     updateUserInfoRoute,
     testRoute,
     forgotPasswordRoute,
-    resetPassword
+    resetPassword,
+    oauthRoute,
+    googleOauthCallbackRoute
 ];

@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { tokenExpiration, jwtSecret, database } from "./config";
 import { randomUUID } from "crypto";
 import { sendEmail } from '../utils/sendEmail';
+import { getGoogleOauthUrl, getGoogleUser, updateOrCreateUserFromOauth } from "../utils/Google";
 const ObjectID = require('mongodb').ObjectID;
 //import ObjectID from 'mongodb'
 
@@ -196,5 +197,34 @@ export const resetPassword = {
         if (result.lastErrorObject.n === 0) return res.sendStatus(404);
 
         return res.sendStatus(200)
+    }
+}
+
+export const oauthRoute = {
+    path: '/auth/google/url',
+    method: 'get',
+    handler: async (req, res) => {
+        const url = getGoogleOauthUrl();
+        res.status(200).json({url});
+    }
+}
+
+export const googleOauthCallbackRoute = {
+    path: '/auth/google/callback',
+    method: 'get',
+    handler: async (req, res) => {
+        const {code} = req.query;
+        const oauthUserInfo = await getGoogleUser({code});
+        const updatedUser = await updateOrCreateUserFromOauth({oauthUserInfo});
+        const {_id: id, isVerified, email, info} = updatedUser;
+
+        jwt.sign(
+            {id, isVerified, email, info},
+            jwtSecret,
+            (err, token) => {
+                if (err) return res.sendStatus(500);
+                return res.redirect(`http://localhost:3000/login?token=${token}`)
+            }
+        )
     }
 }
